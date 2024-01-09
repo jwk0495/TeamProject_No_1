@@ -31,12 +31,12 @@ UCLASS()
 class MYPROJECT5_API APlayerCharacter : public APlayerBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	APlayerCharacter();
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -46,7 +46,7 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UCameraComponent> PlayerCamera;
 
-// Input Action
+	// Input Action
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UInputMappingContext> PlayerMappingContext;
@@ -60,6 +60,10 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UInputAction> LookAction;
 
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<class UInputAction> CrouchAction;
+
+	// Attack
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UInputAction> AttackAction;
 
@@ -93,9 +97,13 @@ protected:
 
 	void Move(const FInputActionValue& InputAction);
 	void Look(const FInputActionValue& InputAction);
+
 	void Attack(const FInputActionValue& InputAction);
 	void AttackEnd(const FInputActionValue& InputAction);
 	void Reload(const FInputActionValue& InputAction);
+
+	void CrouchStart(const FInputActionValue& InputAction);
+	void CrouchEnd(const FInputActionValue& InputAction);
 
 	void HandChangeToMain(const FInputActionValue& InputAction);
 	void HandChangeToSub(const FInputActionValue& InputAction);
@@ -108,6 +116,16 @@ protected:
 	void Heal(const FInputActionValue& InputAction);
 
 	void MeleeAttack(const FInputActionValue& InputAction);
+
+// Move
+protected:
+	bool IsCrouching = false;
+	float MoveSpeedInNormal = 500.0f;
+	float MoveSpeedInFiring = 350.0f;
+	float MoveSpeedInZooming = 200.0f;
+	float MoveSpeedInCrouch = 150.0f;
+
+	float GetMoveSpeed() const;
 
 // Weapon
 protected:
@@ -123,11 +141,11 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class ASubWeapon> SubWeapon;
 
-// HandType
+	// HandType
 protected:
 	EHandType CurHand;
 
-// Shoot & Reload
+	// Shoot & Reload
 protected:
 	UPROPERTY()
 	TSubclassOf<class ABullet> BulletClass;
@@ -140,20 +158,21 @@ protected:
 	bool IsZooming = false;
 	float FireDelayTime = 0.12f;
 	float ReloadDelayTime = 1.5f;
-	float MuzzleOffsetZ = 70.0f;
+	float MuzzleOffsetZInNormal = 70.0f;
+	float MuzzleOffsetZInCrouch = 35.0f;
 
 	float ZoomInFov = 60.0f;
 	float ZoomOutFov = 90.0f;
-	float MoveSpeedInZooming = 200.0f;
-	float MoveSpeedInFiring = 350.0f;
-	float MoveSpeedInNormal = 500.0f;
 
 	float CurShootAccurancy = 1.0f;
 	float MaxShootAccurancy = 1.0f;
 	float DeltaShootAccurancyInNormal = 0.02f;
 	float DeltaShootAccurancyInZoom = 0.01f;
-	float DeltaShootAccurancyRecovery = 0.15f;
+	float DeltaShootAccurancyRecovery = 0.2f;
 	float ShootAccurancyValue = 1.5f;
+
+	FORCEINLINE float GetMuzzleOffsetZ() const { return IsCrouching ? MuzzleOffsetZInCrouch : MuzzleOffsetZInNormal; }
+	float GetShootDeltaAccurancy() const;
 
 	int32 GetAttackPower();
 

@@ -34,6 +34,7 @@ void UProcessUIWidget::SetProcess()
 	if (CurProcessTime >= MaxProcessTime)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(ProcessHandle);
+		ProcessProgressBar->SetPercent(0);
 		CurProcessTime = 0;
 	}
 }

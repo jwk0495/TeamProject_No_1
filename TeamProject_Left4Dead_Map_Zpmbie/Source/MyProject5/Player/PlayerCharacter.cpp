@@ -46,6 +46,13 @@ APlayerCharacter::APlayerCharacter()
 	{
 		LookAction = LookActionRef.Object;
 	}
+	static ConstructorHelpers::FObjectFinder<UInputAction> CrouchActionRef(TEXT("/Script/EnhancedInput.InputAction'/Game/PKH/Input/IA_FPS_Crouch.IA_FPS_Crouch'"));
+	if (CrouchActionRef.Object)
+	{
+		CrouchAction = CrouchActionRef.Object;
+	}
+
+	// Attack
 	static ConstructorHelpers::FObjectFinder<UInputAction> AttackActionRef(TEXT("/Script/EnhancedInput.InputAction'/Game/PKH/Input/IA_FPS_Attack.IA_FPS_Attack'"));
 	if (AttackActionRef.Object)
 	{
@@ -133,6 +140,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	EnhancedInputCompoennt->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 	EnhancedInputCompoennt->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 	EnhancedInputCompoennt->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+	EnhancedInputCompoennt->BindAction(CrouchAction, ETriggerEvent::Started, this, &APlayerCharacter::CrouchStart);
+	EnhancedInputCompoennt->BindAction(CrouchAction, ETriggerEvent::Completed, this, &APlayerCharacter::CrouchEnd);
+	// Attack
 	EnhancedInputCompoennt->BindAction(AttackAction, ETriggerEvent::Started, this, &APlayerCharacter::Attack);
 	EnhancedInputCompoennt->BindAction(AttackAction, ETriggerEvent::Completed, this, &APlayerCharacter::AttackEnd);
 	EnhancedInputCompoennt->BindAction(ReloadAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Reload);
@@ -253,7 +263,7 @@ void APlayerCharacter::AttackEnd(const FInputActionValue& InputAction)
 	}
 
 	IsFiring = false;
-	GetCharacterMovement()->MaxWalkSpeed = MoveSpeedInNormal;
+	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
 	GetWorld()->GetTimerManager().ClearTimer(FireHandle);
 }
 
@@ -282,6 +292,26 @@ void APlayerCharacter::Reload(const FInputActionValue& InputAction)
 	FTimerHandle Handle;
 	GetWorld()->GetTimerManager().SetTimer(Handle, this, &APlayerCharacter::ReloadComplete, ReloadDelayTime, false);
 	UE_LOG(LogTemp, Log, TEXT("Reload"));
+}
+
+void APlayerCharacter::CrouchStart(const FInputActionValue& InputAction)
+{
+	IsCrouching = true;
+	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
+	PlayerCamera->AddRelativeLocation(FVector(0, 0, -40));
+
+}
+
+void APlayerCharacter::CrouchEnd(const FInputActionValue& InputAction)
+{
+	if (IsCrouching == false)
+	{
+		return;
+	}
+
+	IsCrouching = false;
+	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
+	PlayerCamera->AddRelativeLocation(FVector(0, 0, 40));
 }
 
 void APlayerCharacter::HandChangeToMain(const FInputActionValue& InputAction)
@@ -356,7 +386,7 @@ void APlayerCharacter::ZoomIn(const FInputActionValue& InputAction)
 
 	IsZooming = true;
 	PlayerCamera->FieldOfView = ZoomInFov;
-	GetCharacterMovement()->MaxWalkSpeed = MoveSpeedInZooming;
+	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
 }
 
 void APlayerCharacter::ZoomOut(const FInputActionValue& InputAction)
@@ -372,7 +402,7 @@ void APlayerCharacter::ZoomOut(const FInputActionValue& InputAction)
 
 	IsZooming = false;
 	PlayerCamera->FieldOfView = ZoomOutFov;
-	GetCharacterMovement()->MaxWalkSpeed = MoveSpeedInNormal;
+	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
 }
 
 void APlayerCharacter::Heal(const FInputActionValue& InputAction)
@@ -451,6 +481,20 @@ void APlayerCharacter::MeleeAttack(const FInputActionValue& InputAction)
 		[&]() {
 			IsMeleeAttackDelay = false;
 		}), MeleeAttackDelay, false);
+}
+
+float APlayerCharacter::GetMoveSpeed() const
+{
+	if (IsCrouching)
+	{
+		return MoveSpeedInCrouch;
+	}
+	if (IsZooming)
+	{
+		return MoveSpeedInZooming;
+	}
+
+	return IsFiring ? MoveSpeedInFiring : MoveSpeedInNormal;
 }
 
 int APlayerCharacter::SetHp(int32 NewHp)
@@ -556,6 +600,11 @@ void APlayerCharacter::GetItem(FItemData ItemData)
 	}
 }
 
+float APlayerCharacter::GetShootDeltaAccurancy() const
+{
+	return IsZooming || IsCrouching ? DeltaShootAccurancyInZoom : DeltaShootAccurancyInNormal;
+}
+
 int32 APlayerCharacter::GetAttackPower()
 {
 	if (CurHand == EHandType::MainWeapon)
@@ -581,7 +630,7 @@ void APlayerCharacter::OneShot()
 		return;
 	}
 
-	const FVector MuzzleLocation = GetActorLocation() + FVector(0, 0, MuzzleOffsetZ) + (GetActorForwardVector() * (GetCapsuleComponent()->GetUnscaledCapsuleRadius()));
+	const FVector MuzzleLocation = GetActorLocation() + FVector(0, 0, GetMuzzleOffsetZ()) + (GetActorForwardVector() * (GetCapsuleComponent()->GetUnscaledCapsuleRadius()));
 	const FRotator MuzzleRotator = FRotationMatrix::MakeFromX(GetActorForwardVector()).Rotator();
 
 	const FRotator ControllerRotator = Controller->GetControlRotation();
@@ -615,7 +664,7 @@ void APlayerCharacter::OneShot()
 	}
 
 	// accurancy
-	CurShootAccurancy = IsZooming ? CurShootAccurancy - DeltaShootAccurancyInNormal : CurShootAccurancy - DeltaShootAccurancyInZoom;
+	CurShootAccurancy -= GetShootDeltaAccurancy();
 
 	// recoil 
 	FVector RecoilVec = FVector::DownVector + FVector(FMath::RandRange(-1.0f, 1.0f), 0, 0);
@@ -638,10 +687,7 @@ void APlayerCharacter::Shoot()
 		OneShot();
 
 		IsFiring = true;
-		if (IsZooming == false)
-		{
-			GetCharacterMovement()->MaxWalkSpeed = MoveSpeedInFiring;
-		}
+		GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
 		
 		if (!FireHandle.IsValid())
 		{
@@ -662,10 +708,8 @@ void APlayerCharacter::Shoot()
 
 void APlayerCharacter::StopShoot()
 {
-	if (IsZooming == false)
-	{
-		GetCharacterMovement()->MaxWalkSpeed = MoveSpeedInNormal;
-	}
+	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
+	
 	if (FireHandle.IsValid())
 	{
 		GetWorld()->GetTimerManager().ClearTimer(FireHandle);
@@ -714,7 +758,7 @@ void APlayerCharacter::ThrowGrenade()
 	}
 	IsThrowing = true;
 
-	const FVector MuzzleLocation = GetActorLocation() + FVector(0, 0, MuzzleOffsetZ) + (GetActorForwardVector() * (GetCapsuleComponent()->GetUnscaledCapsuleRadius()));
+	const FVector MuzzleLocation = GetActorLocation() + FVector(0, 0, GetMuzzleOffsetZ()) + (GetActorForwardVector() * (GetCapsuleComponent()->GetUnscaledCapsuleRadius()));
 	const FRotator MuzzleRotator = FRotationMatrix::MakeFromX(GetActorForwardVector()).Rotator();
 
 	const FRotator ControllerRotator = Controller->GetControlRotation();
