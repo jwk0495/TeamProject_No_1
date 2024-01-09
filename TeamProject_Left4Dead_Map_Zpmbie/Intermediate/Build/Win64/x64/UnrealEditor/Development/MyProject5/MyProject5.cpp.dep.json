@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\jwk\\firstteamproject\\teamproject_no_1\\teamproject_left4dead_map_zpmbie\\source\\myproject5\\myproject5.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\jwk\\firstteamproject\\teamproject_no_1\\teamproject_left4dead_map_zpmbie\\intermediate\\build\\win64\\x64\\myproject5editor\\development\\engine\\sharedpch.engine.cpp20.inclorderunreal5_0.h.pch",
+        "Includes": [
+            "d:\\jwk\\firstteamproject\\teamproject_no_1\\teamproject_left4dead_map_zpmbie\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject5\\definitions.myproject5.h",
+            "d:\\jwk\\firstteamproject\\teamproject_no_1\\teamproject_left4dead_map_zpmbie\\source\\myproject5\\myproject5.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
