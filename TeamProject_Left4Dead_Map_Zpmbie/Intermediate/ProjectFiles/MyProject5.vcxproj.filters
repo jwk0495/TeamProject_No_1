@@ -12,8 +12,6 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
-    <ClCompile Include="..\..\ZombieBase.cpp" />
-    <ClInclude Include="..\..\ZombieBase.h" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -35,6 +33,36 @@
     <Filter Include="Source\MyProject5">
       <UniqueIdentifier>{76E1545D-F5F4-3A7D-BE4E-8535030F0F93}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\FPSTestCharacter.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\FPSTestCharacter.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\FPSTestGameMode.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\FPSTestGameMode.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\FPSTestPlayerController.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\FPSTestPlayerController.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\FPSTestProjectile.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\FPSTestProjectile.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\ItemAmmo.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\ItemAmmo.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
     <None Include="..\..\Source\MyProject5\MyProject5.Build.cs">
       <Filter>Source\MyProject5</Filter>
     </None>
@@ -43,6 +71,78 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\MyProject5\MyProject5.h">
       <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\TP_PickUpComponent.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\TP_PickUpComponent.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\TP_WeaponComponent.cpp">
+      <Filter>Source\MyProject5</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\TP_WeaponComponent.h">
+      <Filter>Source\MyProject5</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\Bullet">
+      <UniqueIdentifier>{B5EF0688-1FA3-3BD9-B101-8477CF370BBB}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\Bullet\Bullet.cpp">
+      <Filter>Source\MyProject5\Bullet</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Bullet\Bullet.h">
+      <Filter>Source\MyProject5\Bullet</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\Game">
+      <UniqueIdentifier>{DD86D40E-5CA2-3A4D-8CF0-A0A93E21849E}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\Game\MyGameMode.cpp">
+      <Filter>Source\MyProject5\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Game\MyGameMode.h">
+      <Filter>Source\MyProject5\Game</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\Item">
+      <UniqueIdentifier>{426E8873-6F51-3F02-8014-D862CDB6C965}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\Item\ItemBase.cpp">
+      <Filter>Source\MyProject5\Item</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Item\ItemBase.h">
+      <Filter>Source\MyProject5\Item</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\Item\ItemGrenade.cpp">
+      <Filter>Source\MyProject5\Item</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Item\ItemGrenade.h">
+      <Filter>Source\MyProject5\Item</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\Item\ItemHealPack.cpp">
+      <Filter>Source\MyProject5\Item</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Item\ItemHealPack.h">
+      <Filter>Source\MyProject5\Item</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\Player">
+      <UniqueIdentifier>{F85AC41B-BECA-3013-BA56-7D58F2C66734}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\Player\MyPlayerController.cpp">
+      <Filter>Source\MyProject5\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Player\MyPlayerController.h">
+      <Filter>Source\MyProject5\Player</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\Player\PlayerBase.cpp">
+      <Filter>Source\MyProject5\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Player\PlayerBase.h">
+      <Filter>Source\MyProject5\Player</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\Player\PlayerCharacter.cpp">
+      <Filter>Source\MyProject5\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Player\PlayerCharacter.h">
+      <Filter>Source\MyProject5\Player</Filter>
     </ClInclude>
     <Filter Include="Source\MyProject5\Private">
       <UniqueIdentifier>{2DAFF126-DBB1-3672-99C6-4DD67A00D300}</UniqueIdentifier>
@@ -55,6 +155,75 @@
     </Filter>
     <ClInclude Include="..\..\Source\MyProject5\Public\ZombieBase.h">
       <Filter>Source\MyProject5\Public</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\Throwable">
+      <UniqueIdentifier>{0F16257A-F76F-34FA-BED1-F0E279E92B76}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\Throwable\ThrowableWeaponBase.cpp">
+      <Filter>Source\MyProject5\Throwable</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Throwable\ThrowableWeaponBase.h">
+      <Filter>Source\MyProject5\Throwable</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\UI">
+      <UniqueIdentifier>{60E52DD3-BE46-3931-B563-FE46DE51204D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\UI\AmmoCountWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\AmmoCountWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\UI\CrosshairWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\CrosshairWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\UI\GameOverUIWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\GameOverUIWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\UI\GrenadeCountWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\GrenadeCountWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\UI\HpBarWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\HpBarWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\UI\ProcessUIWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\ProcessUIWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
+    <Filter Include="Source\MyProject5\Weapon">
+      <UniqueIdentifier>{4F1787F7-F993-3574-BD6F-2D292C82E0BA}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject5\Weapon\MainWeapon.cpp">
+      <Filter>Source\MyProject5\Weapon</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Weapon\MainWeapon.h">
+      <Filter>Source\MyProject5\Weapon</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\Weapon\SubWeapon.cpp">
+      <Filter>Source\MyProject5\Weapon</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Weapon\SubWeapon.h">
+      <Filter>Source\MyProject5\Weapon</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\Weapon\WeaponBase.cpp">
+      <Filter>Source\MyProject5\Weapon</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\Weapon\WeaponBase.h">
+      <Filter>Source\MyProject5\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

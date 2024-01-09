@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"D:\\JWK\\FirstTeamProject\\TeamProject_No_1\\TeamProject_Left4Dead_Map_Zpmbie\\Source\\MyProject5\\MyProject5.Build.cs",
-		"D:\\JWK\\FirstTeamProject\\TeamProject_No_1\\TeamProject_Left4Dead_Map_Zpmbie\\Source\\MyProject5.Target.cs",
-		"D:\\JWK\\FirstTeamProject\\TeamProject_No_1\\TeamProject_Left4Dead_Map_Zpmbie\\Source\\MyProject5Editor.Target.cs"
+		"D:\\Projects\\JWK\\TeamProject_No_1\\TeamProject_Left4Dead_Map_Zpmbie\\Source\\MyProject5\\MyProject5.Build.cs",
+		"D:\\Projects\\JWK\\TeamProject_No_1\\TeamProject_Left4Dead_Map_Zpmbie\\Source\\MyProject5.Target.cs",
+		"D:\\Projects\\JWK\\TeamProject_No_1\\TeamProject_Left4Dead_Map_Zpmbie\\Source\\MyProject5Editor.Target.cs"
 	],
 	"EngineVersion": "5.3.2"
 }

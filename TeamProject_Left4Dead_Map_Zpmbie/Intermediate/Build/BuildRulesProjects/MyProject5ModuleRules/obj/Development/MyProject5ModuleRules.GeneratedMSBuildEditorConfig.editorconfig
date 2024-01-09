@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MyProject5ModuleRules
-build_property.ProjectDir = D:\JWK\FirstTeamProject\TeamProject_No_1\TeamProject_Left4Dead_Map_Zpmbie\Intermediate\Build\BuildRulesProjects\MyProject5ModuleRules\
+build_property.ProjectDir = D:\Projects\JWK\TeamProject_No_1\TeamProject_Left4Dead_Map_Zpmbie\Intermediate\Build\BuildRulesProjects\MyProject5ModuleRules\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
