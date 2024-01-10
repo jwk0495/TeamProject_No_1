@@ -424,7 +424,7 @@ void APlayerCharacter::Heal(const FInputActionValue& InputAction)
 	FTimerHandle Handle;
 	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda(
 		[&]() {
-			SetHp(CurHp + HealAmount);
+			SetHp(CurHp + HealRate * MaxHp);
 			IsHealing = false;
 			GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
 		}), HealDelayTime, false);

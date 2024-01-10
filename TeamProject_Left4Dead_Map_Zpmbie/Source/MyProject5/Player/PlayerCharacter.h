@@ -200,15 +200,19 @@ protected:
 protected:
 	bool IsHealing = false;
 	float HealDelayTime = 4.0f;
-	int32 HealAmount = 30;
+	float HealRate = 0.3f;
 
 // Melee Attack
 protected:
 	FVector MeleeAttackBoxVec = FVector(50, 80, 35);
 	FVector MeleeAttackMuzzleOffset = FVector(0, 0, 30);
 
-	int32 MeleeAttackPower = 35;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MeleeAttackPower = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float KnuckbackPower = 800.0f;
+
 	bool IsMeleeAttackDelay = false;
 	float MeleeAttackDelay = 1.0f;
 
@@ -218,7 +222,7 @@ protected:
 	int32 MaxHp = 100;
 
 	UPROPERTY(EditAnywhere)
-	int32 CurHp;
+	int32 CurHp = 0;
 
 	UPROPERTY(EditAnywhere)
 	int32 CurMainAmmo = 30;
