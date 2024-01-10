@@ -178,6 +178,7 @@ void APlayerCharacter::BeginPlay()
 	SetHp(MaxHp / 2);
 	SetCurMainAmmo(MaxMainAmmo);
 	SetCurSubAmmo(MaxSubAmmo);
+	CurShootAccurancy = MaxShootAccurancy;
 
 	CurHand = EHandType::MainWeapon;
 
@@ -257,14 +258,12 @@ void APlayerCharacter::AttackEnd(const FInputActionValue& InputAction)
 	{
 		return;
 	}
-	if (CurHand != EHandType::MainWeapon)
+	if (CurHand != EHandType::MainWeapon && CurHand != EHandType::SubWeapon)
 	{
 		return;
 	}
 
-	IsFiring = false;
-	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
-	GetWorld()->GetTimerManager().ClearTimer(FireHandle);
+	StopShoot();
 }
 
 void APlayerCharacter::Reload(const FInputActionValue& InputAction)
@@ -465,15 +464,10 @@ void APlayerCharacter::MeleeAttack(const FInputActionValue& InputAction)
 				DirectionVec.Normalize();
 				Zombie->LaunchCharacter(DirectionVec * KnuckbackPower, true, false);
 				
-				//DrawDebugBox(GetWorld(), AttackCenterVec, MeleeAttackBoxVec, FColor::Green, false, 0.5f);
 				Zombie->OnDamaged(MeleeAttackPower);
 				UE_LOG(LogTemp, Log, TEXT("Melee Attack Hit: %d"), MeleeAttackPower);
 			}
 		}
-	}
-	else
-	{
-		//DrawDebugBox(GetWorld(), AttackCenterVec, MeleeAttackBoxVec, FColor::Red, false, 0.5f);
 	}
 
 	FTimerHandle Handle;
@@ -600,9 +594,25 @@ void APlayerCharacter::GetItem(FItemData ItemData)
 	}
 }
 
+void APlayerCharacter::SetShootAccurancy(float NewShootAccurancy)
+{
+	CurShootAccurancy = FMath::Clamp(NewShootAccurancy, 0.0f, MaxShootAccurancy);
+	OnShootAccurancyChanged.ExecuteIfBound(CurShootAccurancy);
+}
+
 float APlayerCharacter::GetShootDeltaAccurancy() const
 {
-	return IsZooming || IsCrouching ? DeltaShootAccurancyInZoom : DeltaShootAccurancyInNormal;
+	float DeltaAccurancy = 0;
+	if (CurHand == EHandType::MainWeapon)
+	{
+		DeltaAccurancy = DeltaShootAccurancyMainWeapon;
+	}
+	else if (CurHand == EHandType::SubWeapon)
+	{
+		DeltaAccurancy = DeltaShootAccurancySubweapon;
+	}
+
+	return IsZooming || IsCrouching ? DeltaAccurancy * DeltaShootAccurancyRateInZoom : DeltaAccurancy;
 }
 
 int32 APlayerCharacter::GetAttackPower()
@@ -664,7 +674,7 @@ void APlayerCharacter::OneShot()
 	}
 
 	// accurancy
-	CurShootAccurancy -= GetShootDeltaAccurancy();
+	SetShootAccurancy(CurShootAccurancy - GetShootDeltaAccurancy());
 
 	// recoil 
 	FVector RecoilVec = FVector::DownVector + FVector(FMath::RandRange(-1.0f, 1.0f), 0, 0);
@@ -708,6 +718,7 @@ void APlayerCharacter::Shoot()
 
 void APlayerCharacter::StopShoot()
 {
+	IsFiring = false;
 	GetCharacterMovement()->MaxWalkSpeed = GetMoveSpeed();
 	
 	if (FireHandle.IsValid())
@@ -716,13 +727,12 @@ void APlayerCharacter::StopShoot()
 	}
 
 	// Accurancy
-	//CurShootAccurancy = MaxShootAccurancy;
 	GetWorld()->GetTimerManager().SetTimer(AccurancyHandle, FTimerDelegate::CreateLambda(
 		[&]() {
-			CurShootAccurancy = FMath::Clamp(CurShootAccurancy + DeltaShootAccurancyRecovery, 0, MaxShootAccurancy);
+			SetShootAccurancy(CurShootAccurancy + DeltaShootAccurancyRecovery);
 			if (CurShootAccurancy == MaxShootAccurancy)
 				GetWorld()->GetTimerManager().ClearTimer(AccurancyHandle);
-		}), 0.1f, true);
+		}), 0.05f, true);
 }
 
 void APlayerCharacter::ReloadComplete()

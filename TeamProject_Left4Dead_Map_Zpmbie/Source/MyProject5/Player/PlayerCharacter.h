@@ -12,6 +12,7 @@ DECLARE_DELEGATE_TwoParams(FOnMainAmmoChangedDelegate, int /*InCurAmmo*/, int /*
 DECLARE_DELEGATE_OneParam(FOnSubAmmoChangedDelegate, int /*InCurAmmo*/);
 DECLARE_DELEGATE_OneParam(FOnGrenadeChangedDelegate, int /*RemainGrenade*/);
 DECLARE_DELEGATE_OneParam(FOnHealPackChangedDelegate, int /*RemainHealPack*/);
+DECLARE_DELEGATE_OneParam(FOnShootAccurancyChangedDelegate, float /*ShootAccurancy*/);
 
 UENUM()
 enum class EHandType : uint8
@@ -164,12 +165,16 @@ protected:
 	float ZoomInFov = 60.0f;
 	float ZoomOutFov = 90.0f;
 
+	// Shoot Accurancy
 	float CurShootAccurancy = 1.0f;
 	float MaxShootAccurancy = 1.0f;
-	float DeltaShootAccurancyInNormal = 0.02f;
-	float DeltaShootAccurancyInZoom = 0.01f;
-	float DeltaShootAccurancyRecovery = 0.2f;
-	float ShootAccurancyValue = 1.5f;
+	float DeltaShootAccurancyMainWeapon = 0.02f;
+	float DeltaShootAccurancySubweapon = 0.1f;
+	float DeltaShootAccurancyRateInZoom = 0.5f;
+	float DeltaShootAccurancyRecovery = 0.05f;
+	float ShootAccurancyValue = 0.75f;
+
+	void SetShootAccurancy(float NewShootAccurancy);
 
 	FORCEINLINE float GetMuzzleOffsetZ() const { return IsCrouching ? MuzzleOffsetZInCrouch : MuzzleOffsetZInNormal; }
 	float GetShootDeltaAccurancy() const;
@@ -276,6 +281,7 @@ public:
 	FOnSubAmmoChangedDelegate OnSubAmmoChanged;
 	FOnGrenadeChangedDelegate OnGrenadeChanged;
 	FOnHealPackChangedDelegate OnHealPackChanged;
+	FOnShootAccurancyChangedDelegate OnShootAccurancyChanged;
 
 protected:
 	void ShowProcessUI();

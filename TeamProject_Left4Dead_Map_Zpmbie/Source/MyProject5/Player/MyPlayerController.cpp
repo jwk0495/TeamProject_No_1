@@ -22,7 +22,7 @@ AMyPlayerController::AMyPlayerController()
 		AmmoCountClass = AmmoCountRef.Class;
 	}
 
-	static ConstructorHelpers::FClassFinder<UCrosshairWidget> CrossshairRef(TEXT("/Game/PKH/UI/WBP_Crosshair.WBP_Crosshair_C"));
+	static ConstructorHelpers::FClassFinder<UCrosshairWidget> CrossshairRef(TEXT("/Game/PKH/UI/WBP_CrosshairUI.WBP_CrosshairUI_C"));
 	if (CrossshairRef.Class)
 	{
 		CrosshairClass = CrossshairRef.Class;
@@ -86,6 +86,7 @@ void AMyPlayerController::InitWidget(APlayerCharacter* InPlayerCharacter)
 {
 	HpBar->SetDelegate(InPlayerCharacter);
 	AmmoCount->SetDelegate(InPlayerCharacter);
+	CrosshairWidget->SetDelegate(InPlayerCharacter);
 }
 
 void AMyPlayerController::ShowProcessUI(FText Text, float Time)
