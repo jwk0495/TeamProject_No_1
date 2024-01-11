@@ -21,11 +21,12 @@ struct FItemData
 	GENERATED_USTRUCT_BODY()
 
 public:
-	FItemData() : ItemType(EItemType::None), ItemValue(0) {}
-	FItemData(EItemType Type, int32 Value) : ItemType(Type), ItemValue(Value) {}
+	FItemData() : ItemType(EItemType::None), ItemValue(0), ItemText(TEXT("")) {}
+	FItemData(EItemType Type, int32 Value, FString Text) : ItemType(Type), ItemValue(Value), ItemText(Text) {}
 
 	EItemType ItemType;
 	int32 ItemValue;
+	FString ItemText;
 };
 
 UCLASS()
@@ -35,6 +36,8 @@ class MYPROJECT5_API AItemBase : public AActor
 	
 public:	
 	AItemBase();
+
+	FORCEINLINE FItemData GetItemData() const { return ItemData; };
 
 protected:
 	FItemData ItemData;
@@ -46,5 +49,8 @@ protected:
 	TObjectPtr<class UStaticMeshComponent> Mesh;
 
 	UFUNCTION()
-	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

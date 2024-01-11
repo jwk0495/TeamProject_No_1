@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Item/ItemGrenade.h"
@@ -16,5 +16,5 @@ AItemGrenade::AItemGrenade()
 		Mesh->SetupAttachment(SphereComponent);
 	}
 
-	ItemData = FItemData(EItemType::Grenade, GrenadeCount);
+	ItemData = FItemData(EItemType::Grenade, GrenadeCount, TEXT("수류탄"));
 }

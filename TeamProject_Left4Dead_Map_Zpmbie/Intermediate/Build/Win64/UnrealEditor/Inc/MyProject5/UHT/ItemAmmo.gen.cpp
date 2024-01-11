@@ -82,9 +82,9 @@ void EmptyLinkFunctionForGeneratedCodeItemAmmo() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_ItemAmmo_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AItemAmmo, AItemAmmo::StaticClass, TEXT("AItemAmmo"), &Z_Registration_Info_UClass_AItemAmmo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AItemAmmo), 765395248U) },
+		{ Z_Construct_UClass_AItemAmmo, AItemAmmo::StaticClass, TEXT("AItemAmmo"), &Z_Registration_Info_UClass_AItemAmmo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AItemAmmo), 2914570308U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_ItemAmmo_h_4201304671(TEXT("/Script/MyProject5"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_ItemAmmo_h_75885228(TEXT("/Script/MyProject5"),
 		Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_ItemAmmo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_ItemAmmo_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Item/ItemHealPack.h"
@@ -16,5 +16,5 @@ AItemHealPack::AItemHealPack()
 		Mesh->SetupAttachment(SphereComponent);
 	}
 
-	ItemData = FItemData(EItemType::Heal, HealPackCount);
+	ItemData = FItemData(EItemType::Heal, HealPackCount, TEXT("힐 팩"));
 }

@@ -11,18 +11,25 @@ AItemBase::AItemBase()
 {
 	// Collision
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AItemBase::OnOverlap);
+	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AItemBase::OnBeginOverlap);
+	SphereComponent->OnComponentEndOverlap.AddDynamic(this, &AItemBase::OnEndOverlap);
 	SphereComponent->SetSphereRadius(10.0f);
 }
 
-void AItemBase::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AItemBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(OtherActor);
 	if (PlayerCharacter)
 	{
-		PlayerCharacter->GetItem(ItemData);
-		Destroy();
+		PlayerCharacter->SetNearbyItem(this);
 	}
 }
 
-
+void AItemBase::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(OtherActor);
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->RemoveNearbyItem(this);
+	}
+}

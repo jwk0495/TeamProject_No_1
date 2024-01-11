@@ -13,6 +13,7 @@ DECLARE_DELEGATE_OneParam(FOnSubAmmoChangedDelegate, int /*InCurAmmo*/);
 DECLARE_DELEGATE_OneParam(FOnGrenadeChangedDelegate, int /*RemainGrenade*/);
 DECLARE_DELEGATE_OneParam(FOnHealPackChangedDelegate, int /*RemainHealPack*/);
 DECLARE_DELEGATE_OneParam(FOnShootAccurancyChangedDelegate, float /*ShootAccurancy*/);
+DECLARE_DELEGATE_TwoParams(FOnNearbyItemChangedDelegate, bool /*IsExist*/, FText /*NewItemText*/);
 
 UENUM()
 enum class EHandType : uint8
@@ -47,7 +48,7 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UCameraComponent> PlayerCamera;
 
-	// Input Action
+// Input Action
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UInputMappingContext> PlayerMappingContext;
@@ -95,6 +96,10 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UInputAction> MeleeAttackAction;
 
+	// Get Item
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<class UInputAction> GetItemAction;
+
 
 	void Move(const FInputActionValue& InputAction);
 	void Look(const FInputActionValue& InputAction);
@@ -117,6 +122,8 @@ protected:
 	void Heal(const FInputActionValue& InputAction);
 
 	void MeleeAttack(const FInputActionValue& InputAction);
+
+	void GetItem(const FInputActionValue& InputAction);
 
 // Move
 protected:
@@ -168,8 +175,8 @@ protected:
 	// Shoot Accurancy
 	float CurShootAccurancy = 1.0f;
 	float MaxShootAccurancy = 1.0f;
-	float DeltaShootAccurancyMainWeapon = 0.02f;
-	float DeltaShootAccurancySubweapon = 0.1f;
+	float DeltaShootAccurancyMainWeapon = 0.025f;
+	float DeltaShootAccurancySubweapon = 0.2f;
 	float DeltaShootAccurancyRateInZoom = 0.5f;
 	float DeltaShootAccurancyRecovery = 0.05f;
 	float ShootAccurancyValue = 0.75f;
@@ -220,6 +227,15 @@ protected:
 
 	bool IsMeleeAttackDelay = false;
 	float MeleeAttackDelay = 1.0f;
+
+// Nearby Item
+protected:
+	UPROPERTY()
+	TObjectPtr<class AItemBase> NearbyItem;
+
+public:
+	void SetNearbyItem(class AItemBase* InItem);
+	void RemoveNearbyItem(class AItemBase* OutItem);
 
 // Status
 protected:
@@ -282,12 +298,9 @@ public:
 	FOnGrenadeChangedDelegate OnGrenadeChanged;
 	FOnHealPackChangedDelegate OnHealPackChanged;
 	FOnShootAccurancyChangedDelegate OnShootAccurancyChanged;
+	FOnNearbyItemChangedDelegate OnNearbyItemChanged;
 
 protected:
 	void ShowProcessUI();
-
-// Item
-public:
-	void GetItem(struct FItemData ItemData);
 
 };

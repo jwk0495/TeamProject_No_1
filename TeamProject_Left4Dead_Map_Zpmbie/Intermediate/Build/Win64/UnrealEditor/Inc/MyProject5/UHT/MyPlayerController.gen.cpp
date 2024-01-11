@@ -17,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayerController() {}
 	MYPROJECT5_API UClass* Z_Construct_UClass_UCrosshairWidget_NoRegister();
 	MYPROJECT5_API UClass* Z_Construct_UClass_UGameOverUIWidget_NoRegister();
 	MYPROJECT5_API UClass* Z_Construct_UClass_UHpBarWidget_NoRegister();
+	MYPROJECT5_API UClass* Z_Construct_UClass_UNearbyItemWidget_NoRegister();
 	MYPROJECT5_API UClass* Z_Construct_UClass_UProcessUIWidget_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_MyProject5();
 // End Cross Module References
@@ -66,6 +67,14 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayerController() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ProcessUIWidget_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_ProcessUIWidget;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_NearbyItemUIClass_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_NearbyItemUIClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_NearbyItemUIWidget_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_NearbyItemUIWidget;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_GameOverUIClass_MetaData[];
 #endif
@@ -178,6 +187,27 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayerController() {}
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AMyPlayerController_Statics::NewProp_ProcessUIWidget = { "ProcessUIWidget", nullptr, (EPropertyFlags)0x002408000008000d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayerController, ProcessUIWidget), Z_Construct_UClass_UProcessUIWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AMyPlayerController_Statics::NewProp_ProcessUIWidget_MetaData), Z_Construct_UClass_AMyPlayerController_Statics::NewProp_ProcessUIWidget_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIClass_MetaData[] = {
+		{ "Category", "MyPlayerController" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Nearby Item\n" },
+#endif
+		{ "ModuleRelativePath", "Player/MyPlayerController.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Nearby Item" },
+#endif
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIClass = { "NearbyItemUIClass", nullptr, (EPropertyFlags)0x0024080000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayerController, NearbyItemUIClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UNearbyItemWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIClass_MetaData), Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIWidget_MetaData[] = {
+		{ "Category", "MyPlayerController" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Player/MyPlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIWidget = { "NearbyItemUIWidget", nullptr, (EPropertyFlags)0x002408000008000d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayerController, NearbyItemUIWidget), Z_Construct_UClass_UNearbyItemWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIWidget_MetaData), Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIWidget_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyPlayerController_Statics::NewProp_GameOverUIClass_MetaData[] = {
 		{ "Category", "MyPlayerController" },
 #if !UE_BUILD_SHIPPING
@@ -207,6 +237,8 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayerController() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_CrosshairWidget,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_ProcessUIClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_ProcessUIWidget,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_NearbyItemUIWidget,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_GameOverUIClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_GameOverUIWidget,
 	};
@@ -248,9 +280,9 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayerController() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_Player_MyPlayerController_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayerController, AMyPlayerController::StaticClass, TEXT("AMyPlayerController"), &Z_Registration_Info_UClass_AMyPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayerController), 3966766083U) },
+		{ Z_Construct_UClass_AMyPlayerController, AMyPlayerController::StaticClass, TEXT("AMyPlayerController"), &Z_Registration_Info_UClass_AMyPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayerController), 1538436298U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_Player_MyPlayerController_h_3200466432(TEXT("/Script/MyProject5"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_Player_MyPlayerController_h_1034529561(TEXT("/Script/MyProject5"),
 		Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_Player_MyPlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_TeamProject_Left4Dead_Map_Zpmbie_Source_MyProject5_Player_MyPlayerController_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

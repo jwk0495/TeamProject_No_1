@@ -7,6 +7,7 @@
 #include "UI/CrosshairWidget.h"
 #include "UI/ProcessUIWidget.h"
 #include "UI/GameOverUIWidget.h"
+#include "UI/NearbyItemWidget.h"
 
 AMyPlayerController::AMyPlayerController()
 {
@@ -32,6 +33,12 @@ AMyPlayerController::AMyPlayerController()
 	if (ProcessUIRef.Class)
 	{
 		ProcessUIClass = ProcessUIRef.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UNearbyItemWidget> NearbyItemRef(TEXT("/Game/PKH/UI/WBP_NearbyItemUI.WBP_NearbyItemUI_C"));
+	if (NearbyItemRef.Class)
+	{
+		NearbyItemUIClass = NearbyItemRef.Class;
 	}
 
 	static ConstructorHelpers::FClassFinder<UGameOverUIWidget> GameOverUIRef(TEXT("/Game/PKH/UI/WBP_GameOverUI.WBP_GameOverUI_C"));
@@ -74,6 +81,12 @@ void AMyPlayerController::BeginPlay()
 		ProcessUIWidget->SetVisibility(ESlateVisibility::Hidden);
 	}
 
+	NearbyItemUIWidget = CreateWidget<UNearbyItemWidget>(this, NearbyItemUIClass);
+	if (NearbyItemUIWidget)
+	{
+		NearbyItemUIWidget->AddToViewport();
+	}
+
 	GameOverUIWidget = CreateWidget<UGameOverUIWidget>(this, GameOverUIClass);
 	if (GameOverUIWidget)
 	{
@@ -87,6 +100,7 @@ void AMyPlayerController::InitWidget(APlayerCharacter* InPlayerCharacter)
 	HpBar->SetDelegate(InPlayerCharacter);
 	AmmoCount->SetDelegate(InPlayerCharacter);
 	CrosshairWidget->SetDelegate(InPlayerCharacter);
+	NearbyItemUIWidget->SetDelegate(InPlayerCharacter);
 }
 
 void AMyPlayerController::ShowProcessUI(FText Text, float Time)

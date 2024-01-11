@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ItemAmmo.h"
@@ -16,5 +16,5 @@ AItemAmmo::AItemAmmo()
 		Mesh->SetupAttachment(SphereComponent);
 	}
 
-	ItemData = FItemData(EItemType::Ammo, AmmoValue);
+	ItemData = FItemData(EItemType::Ammo, AmmoValue, TEXT("탄창"));
 }

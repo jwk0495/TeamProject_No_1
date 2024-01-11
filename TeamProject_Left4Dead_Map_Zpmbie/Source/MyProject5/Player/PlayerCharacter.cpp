@@ -102,6 +102,12 @@ APlayerCharacter::APlayerCharacter()
 	{
 		MeleeAttackAction = MeleeAttackActionRef.Object;
 	}
+	// Get Item
+	static ConstructorHelpers::FObjectFinder<UInputAction> GetItemActionRef(TEXT("/Script/EnhancedInput.InputAction'/Game/PKH/Input/IA_FPS_GetItem.IA_FPS_GetItem'"));
+	if (GetItemActionRef.Object)
+	{
+		GetItemAction = GetItemActionRef.Object;
+	}
 
 	// Bullet
 	static ConstructorHelpers::FClassFinder<ABullet> BulletRef(TEXT("/Game/PKH/BP/BP_Bullet.BP_Bullet_C"));
@@ -140,6 +146,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	EnhancedInputCompoennt->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 	EnhancedInputCompoennt->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 	EnhancedInputCompoennt->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+	// Coruch
 	EnhancedInputCompoennt->BindAction(CrouchAction, ETriggerEvent::Started, this, &APlayerCharacter::CrouchStart);
 	EnhancedInputCompoennt->BindAction(CrouchAction, ETriggerEvent::Completed, this, &APlayerCharacter::CrouchEnd);
 	// Attack
@@ -158,6 +165,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	EnhancedInputCompoennt->BindAction(HealAction, ETriggerEvent::Started, this, &APlayerCharacter::Heal);
 	// MeleeAttack
 	EnhancedInputCompoennt->BindAction(MeleeAttackAction, ETriggerEvent::Started, this, &APlayerCharacter::MeleeAttack);
+	// GetItem
+	EnhancedInputCompoennt->BindAction(GetItemAction, ETriggerEvent::Started, this, &APlayerCharacter::GetItem);
 }
 
 void APlayerCharacter::BeginPlay()
@@ -477,6 +486,30 @@ void APlayerCharacter::MeleeAttack(const FInputActionValue& InputAction)
 		}), MeleeAttackDelay, false);
 }
 
+void APlayerCharacter::GetItem(const FInputActionValue& InputAction)
+{
+	if (IsDead || NearbyItem == nullptr)
+	{
+		return;
+	}
+
+	FItemData ItemData = NearbyItem->GetItemData();
+	switch (ItemData.ItemType)
+	{
+	case EItemType::Heal:
+		SetRemainHealPack(RemainHealPack + ItemData.ItemValue);
+		break;
+	case EItemType::Ammo:
+		SetRemainMainAmmo(RemainMainAmmo + ItemData.ItemValue);
+		break;
+	case EItemType::Grenade:
+		SetRemainGrenade(RemainGrenade + ItemData.ItemValue);
+		break;
+	}
+	NearbyItem->Destroy();
+	RemoveNearbyItem(NearbyItem);
+}
+
 float APlayerCharacter::GetMoveSpeed() const
 {
 	if (IsCrouching)
@@ -575,22 +608,6 @@ void APlayerCharacter::ShowProcessUI()
 	else if (IsHealing)
 	{
 		GetMyController()->ShowProcessUI(FText::FromString(TEXT("Healing...")), HealDelayTime);
-	}
-}
-
-void APlayerCharacter::GetItem(FItemData ItemData)
-{
-	switch (ItemData.ItemType)
-	{
-	case EItemType::Heal:
-		SetRemainHealPack(RemainHealPack + ItemData.ItemValue);
-		break;
-	case EItemType::Ammo:
-		SetRemainMainAmmo(RemainMainAmmo + ItemData.ItemValue);
-		break;
-	case EItemType::Grenade:
-		SetRemainGrenade(RemainGrenade + ItemData.ItemValue);
-		break;
 	}
 }
 
@@ -795,4 +812,21 @@ void APlayerCharacter::ThrowGrenade()
 		{
 			IsThrowing = false;
 		}, 1.0f, false, ThrowDelay);
+}
+
+void APlayerCharacter::SetNearbyItem(AItemBase* InItem)
+{
+	NearbyItem = InItem;
+	FText ItemText = FText::FromString(FString::Printf(TEXT("Get Item")));
+	OnNearbyItemChanged.ExecuteIfBound(true, ItemText);
+}
+
+void APlayerCharacter::RemoveNearbyItem(AItemBase* OutItem)
+{
+	if (NearbyItem != OutItem)
+	{
+		return;
+	}
+	NearbyItem = nullptr;
+	OnNearbyItemChanged.ExecuteIfBound(false, FText());
 }

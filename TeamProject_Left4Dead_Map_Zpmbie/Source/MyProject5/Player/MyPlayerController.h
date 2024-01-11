@@ -49,6 +49,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<class UProcessUIWidget> ProcessUIWidget;
 
+	// Nearby Item
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UNearbyItemWidget> NearbyItemUIClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<class UNearbyItemWidget> NearbyItemUIWidget;
+
 	// GameOver UI
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UGameOverUIWidget> GameOverUIClass;

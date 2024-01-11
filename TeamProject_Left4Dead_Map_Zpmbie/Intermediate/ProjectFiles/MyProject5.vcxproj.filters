@@ -198,6 +198,12 @@
     <ClInclude Include="..\..\Source\MyProject5\UI\HpBarWidget.h">
       <Filter>Source\MyProject5\UI</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\MyProject5\UI\NearbyItemWidget.cpp">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyProject5\UI\NearbyItemWidget.h">
+      <Filter>Source\MyProject5\UI</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyProject5\UI\ProcessUIWidget.cpp">
       <Filter>Source\MyProject5\UI</Filter>
     </ClCompile>
