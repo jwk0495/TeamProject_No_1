@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Player/PlayerCharacter.h"
@@ -817,7 +817,7 @@ void APlayerCharacter::ThrowGrenade()
 void APlayerCharacter::SetNearbyItem(AItemBase* InItem)
 {
 	NearbyItem = InItem;
-	FText ItemText = FText::FromString(FString::Printf(TEXT("Get Item")));
+	FText ItemText = FText::FromString(FString::Printf(TEXT("%s 획득하기"), *NearbyItem->GetItemData().ItemText));
 	OnNearbyItemChanged.ExecuteIfBound(true, ItemText);
 }
 
